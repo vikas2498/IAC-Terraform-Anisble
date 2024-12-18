@@ -9,6 +9,8 @@ terraform {
 
 provider "azurerm" {
   features {}
+
+  
 }
 
 resource "azurerm_resource_group" "RG"{
@@ -35,4 +37,23 @@ name = "dev-snet01-db-tf"
 resource_group_name=azurerm_resource_group.RG.name
 virtual_network_name= azurerm_virtual_network.vnet-dev.name
 address_prefixes= ["10.0.2.0/24"]
+}
+
+resource "azurerm_resource_group" "dev-stg-rg-tf" {
+  name     = "dev-tfstate-rg"
+  location = "West Europe"
+}
+
+resource "azurerm_storage_account" "dev-stg-acc-tf" {
+  name                     = "devtfstatestgacc"
+  resource_group_name      = azurerm_resource_group.dev-stg-rg-tf.name
+  location                 = azurerm_resource_group.dev-stg-rg-tf.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "devtfstatestgacc_cont" {
+  name                  = "devtfstatestgacc-cont"
+  storage_account_name  = azurerm_storage_account.dev-stg-acc-tf.name
+  container_access_type = "private"
 }
