@@ -33,7 +33,7 @@ resource "azurerm_network_interface" "vmdevd01-nic01" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = "/subscriptions/33a960b5-98c2-4688-8fd8-3d5e673f9362/resourceGroups/test_RG01_tf/providers/Microsoft.Network/virtualNetworks/dev-vnet01-tf/subnets/dev-snet01-app-tf"
+    subnet_id                     = "/subscriptions/subid/resourceGroups/test_RG01_tf/providers/Microsoft.Network/virtualNetworks/dev-vnet01-tf/subnets/dev-snet01-app-tf"
     private_ip_address_allocation = "Static"
   }
 }
